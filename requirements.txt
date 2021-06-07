@@ -1,3 +1,4 @@
-pyside2
-fbs
+PySide2==5.13.2
+fbs==0.8.4
+PyInstaller==3.4
 pandas

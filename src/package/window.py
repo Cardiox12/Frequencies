@@ -1,14 +1,12 @@
 from PySide2 import QtWidgets
 
-from package.api.constants import TABLE_ROW_COUNT, TABLE_LABELS
+from package.api.constants import TABLE_ROW_COUNT, TABLE_LABELS, CSS_FILE
 from package.api.frequencies import Frequencies
-from pprint import pprint
 
 
 class Window(QtWidgets.QWidget):
-    def __init__(self, ctx):
+    def __init__(self):
         super().__init__()
-        self.ctx = ctx
         self.frequencies = Frequencies()
         self.setWindowTitle("Frequencies")
         self.setup_ui()
@@ -47,8 +45,7 @@ class Window(QtWidgets.QWidget):
         self.freqs_table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.freqs_table.verticalHeader().setVisible(False)
 
-        style = self.ctx.get_resource("style.css")
-        with open(style, "r") as f:
+        with open(CSS_FILE, "r") as f:
             self.setStyleSheet(f.read())
 
     def create_layouts(self):
