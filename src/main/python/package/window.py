@@ -15,6 +15,7 @@ class Window(QtWidgets.QWidget):
 
     def setup_ui(self):
         self.create_widgets()
+        self.set_objects_name()
         self.modify_widgets()
         self.create_layouts()
         self.add_widgets_to_layouts()
@@ -24,6 +25,11 @@ class Window(QtWidgets.QWidget):
         self.airport_line_edit = QtWidgets.QLineEdit()
         self.find_button = QtWidgets.QPushButton("Find")
         self.freqs_table = QtWidgets.QTableWidget()
+
+    def set_objects_name(self):
+        self.airport_line_edit.setObjectName("airportLineEdit")
+        self.find_button.setObjectName("findButton")
+        self.freqs_table.setObjectName("freqsTable")
 
     def modify_widgets(self):
         # Size
@@ -41,6 +47,10 @@ class Window(QtWidgets.QWidget):
         self.freqs_table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.freqs_table.verticalHeader().setVisible(False)
 
+        style = self.ctx.get_resource("style.css")
+        with open(style, "r") as f:
+            self.setStyleSheet(f.read())
+
     def create_layouts(self):
         self.main_layout = QtWidgets.QGridLayout(self)
 
@@ -51,6 +61,7 @@ class Window(QtWidgets.QWidget):
 
     def setup_connections(self):
         self.find_button.clicked.connect(self.on_find_button_clicked)
+        self.airport_line_edit.returnPressed.connect(self.on_find_button_clicked)
 
     def on_find_button_clicked(self):
         oaci = self.airport_line_edit.text()
