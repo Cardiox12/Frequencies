@@ -1,6 +1,6 @@
 import pandas
 
-from package.api.constants import FREQUENCIES_FILE
+from package.api.constants import FREQUENCIES_CSV
 
 
 class Frequencies:
@@ -11,8 +11,8 @@ class Frequencies:
     COL_DESCRIPTION = "description"
     COL_FREQUENCY = "frequency_mhz"
 
-    def __init__(self):
-        self.filename = FREQUENCIES_FILE
+    def __init__(self, ctx):
+        self.filename = ctx.get_data(FREQUENCIES_CSV)
         self.frequencies = pandas.read_csv(self.filename)
         self.data = None
 

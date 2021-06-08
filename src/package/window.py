@@ -5,10 +5,10 @@ from package.api.frequencies import Frequencies
 
 
 class Window(QtWidgets.QWidget):
-    def __init__(self, css_file):
+    def __init__(self, ctx):
         super().__init__()
-        self.css_file = css_file
-        self.frequencies = Frequencies()
+        self.ctx = ctx
+        self.frequencies = Frequencies(ctx)
         self.setWindowTitle("Frequencies")
         self.setup_ui()
 
@@ -46,7 +46,7 @@ class Window(QtWidgets.QWidget):
         self.freqs_table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.freqs_table.verticalHeader().setVisible(False)
 
-        with open(self.css_file, "r") as f:
+        with open(self.ctx.get_style("style.css"), "r") as f:
             self.setStyleSheet(f.read())
 
     def create_layouts(self):
