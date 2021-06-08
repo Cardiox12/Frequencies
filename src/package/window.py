@@ -1,12 +1,13 @@
 from PySide2 import QtWidgets
 
-from package.api.constants import TABLE_ROW_COUNT, TABLE_LABELS, CSS_FILE
+from package.api.constants import TABLE_ROW_COUNT, TABLE_LABELS
 from package.api.frequencies import Frequencies
 
 
 class Window(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, css_file):
         super().__init__()
+        self.css_file = css_file
         self.frequencies = Frequencies()
         self.setWindowTitle("Frequencies")
         self.setup_ui()
@@ -45,7 +46,7 @@ class Window(QtWidgets.QWidget):
         self.freqs_table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.freqs_table.verticalHeader().setVisible(False)
 
-        with open(CSS_FILE, "r") as f:
+        with open(self.css_file, "r") as f:
             self.setStyleSheet(f.read())
 
     def create_layouts(self):
@@ -79,7 +80,7 @@ class Window(QtWidgets.QWidget):
         for index, key in enumerate(data.get(Frequencies.COL_DESCRIPTION)):
             desc = data.get(Frequencies.COL_DESCRIPTION).get(key)
             type = data.get(Frequencies.COL_TYPE).get(key)
-            freq = f"{data.get(Frequencies.COL_FREQUENCY).get(key)} mHz"
+            freq = f"{data.get(Frequencies.COL_FREQUENCY).get(key)} MHz"
 
 
             self.freqs_table.setItem(index, 0, QtWidgets.QTableWidgetItem(desc))

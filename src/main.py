@@ -4,12 +4,12 @@ from package.window import Window
 import sys
 import os
 
-dirname, _ = os.path.split(os.path.abspath(__file__))
-print(f"Running from {dirname}")
+dirname = os.path.dirname(os.path.abspath(__file__))
+CSS_FILE = os.path.join(dirname, "package", "resources", "style", "style.css")
 
 if __name__ == '__main__':
     app = QApplication()
-    window = Window()
+    window = Window(CSS_FILE)
 
     window.show()
     sys.exit(app.exec_())
